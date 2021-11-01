@@ -12,14 +12,13 @@ public class Coin_0 {
         for(int i=0; i<N; i++){
             coins.add(scan.nextInt());
         }
-        coins.sort(Collections.reverseOrder());
-        int i = 0;
-        while (K > 0 && i < coins.size()){
-            if (coins.get(i) < K){
+        int i = N-1;
+        while (K > 0 && i > -1){
+            if (coins.get(i) <= K){
                 result += K / coins.get(i);
                 K -= K / coins.get(i) * coins.get(i);
             }
-            i += 1;
+            i -= 1;
         }
         System.out.print(result);
     }
