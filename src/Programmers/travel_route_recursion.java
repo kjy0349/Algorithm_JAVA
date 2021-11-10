@@ -16,6 +16,7 @@ public class travel_route_recursion {
     static void dfs(String now, String nodes, int count, String[][] tickets){
         if (count == tickets.length){
             result.add(nodes);
+            System.out.println(result);
             return;
         }
 
