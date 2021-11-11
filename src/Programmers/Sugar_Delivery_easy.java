@@ -1,3 +1,5 @@
+package Programmers;
+
 import java.util.Scanner;
 public class Sugar_Delivery_easy{
     public static void main(String[] args) {
