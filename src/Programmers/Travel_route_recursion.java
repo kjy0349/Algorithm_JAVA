@@ -1,7 +1,7 @@
 package Programmers;
 
 import java.util.*;
-public class travel_route_recursion {
+public class Travel_route_recursion {
     static boolean[] visited;
     static ArrayList<String> result;
 

@@ -1,7 +1,7 @@
 package Programmers;
 
 import java.util.*;
-public class word_convert {
+public class Word_convert {
     public static class Item{
         String str;
         int move;

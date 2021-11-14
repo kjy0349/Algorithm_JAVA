@@ -2,7 +2,7 @@ package Programmers;
 
 import java.util.*;
 import java.lang.*;
-public class travel_route {
+public class Travel_route {
     public static class Airport implements Comparable<Airport> {
         String start;
         String arrive;

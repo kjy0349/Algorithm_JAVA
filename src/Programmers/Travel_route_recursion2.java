@@ -1,7 +1,7 @@
 package Programmers;
 
 import java.util.*;
-public class travel_route_recursion2 {
+public class Travel_route_recursion2 {
     private static final int SRC = 0;
     private static final int DST = 1;
 
