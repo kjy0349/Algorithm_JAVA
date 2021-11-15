@@ -1,9 +1,13 @@
 package standard;
-import java.util.ArrayList;
-
+import java.util.Scanner;
 public class N_queens {
     private int N;
     private int cols[]; //cols[i] = i행의 col 좌표
+    private int answer = 0;
+
+    public int getAnswer() {
+        return answer;
+    }
 
     public N_queens(int N){
         this.N = N;
@@ -12,10 +16,7 @@ public class N_queens {
 
     public void back_tracking(int level){
         if(level == N){
-            for(int i=0;i<N;i++){
-                System.out.print(cols[i] + " ");
-            }
-            System.out.println("");
+            answer++;
         } else{
             for(int i=0;i<N;i++){
                 cols[level]=i;
@@ -28,7 +29,7 @@ public class N_queens {
 
     public boolean isPossible(int level){
         for(int i=0;i<level;i++){
-            if(cols[i] == cols[level] || Math.abs(level-i) == Math.abs(cols[level]-cols[i])){
+            if(cols[i] == cols[level] || level-i == Math.abs(cols[level]-cols[i])){
                 return false;
             }
         }
@@ -36,8 +37,10 @@ public class N_queens {
     }
 
     public static void main(String[] args) {
-        int N = 5;
+        Scanner scan = new Scanner(System.in);
+        int N = scan.nextInt();
         N_queens queen = new N_queens(N);
         queen.back_tracking(0);
+        System.out.println(queen.getAnswer());
     }
 }
