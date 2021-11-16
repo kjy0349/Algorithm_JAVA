@@ -1,4 +1,4 @@
-package standard;
+package backjoon;
 import java.util.Scanner;
 public class N_queens {
     private int N;
