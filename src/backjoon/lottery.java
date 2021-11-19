@@ -3,26 +3,21 @@ import java.io.*;
 import java.util.*;
 public class lottery {
     public static BufferedWriter ber = new BufferedWriter(new OutputStreamWriter(System.out));
-    public static void find_solution(HashSet<Integer> array, ArrayList<Integer> answer, int depth, boolean[] visited) throws IOException {
-        if (depth == 6){
-            Collections.sort(answer);
-            for(int temp:answer) {
-                ber.write(temp + " ");
+    public static void find_solution(ArrayList<Integer> array, ArrayList<Integer> answer,int R,int start, int depth, boolean[] visited) throws IOException {
+        if (R == 0){
+            for(int i=0;i< answer.size();i++) {
+                ber.write(answer.get(i) + " ");
             }
             ber.newLine();
         } else{
-            Iterator<Integer> it = array.iterator();
-            int i = 0;
-            while(it.hasNext()){
-                int elem = it.next();
+            for(int i=start;i< array.size();i++){
                 if(!visited[i]){
                     visited[i] = true;
-                    answer.add(elem);
-                    find_solution(array, answer ,depth+1, visited);
-                    answer.remove(answer.indexOf(elem));
+                    answer.add(array.get(i));
+                    find_solution(array, answer ,R - 1,i + 1,depth+1, visited);
+                    answer.remove(array.get(i));
                     visited[i] = false;
                 }
-                i++;
             }
         }
     }
@@ -33,13 +28,13 @@ public class lottery {
             if (input[0].equals("0")){
                 break;
             } else{
-                HashSet<Integer> nums = new HashSet<>();
-                for(int i=0;i<input.length;i++){
+                ArrayList<Integer> nums = new ArrayList<>();
+                for(int i=1;i<input.length;i++){
                     nums.add(Integer.parseInt(input[i]));
                 }
-                System.out.println(nums);
-                find_solution(nums, new ArrayList<>(), 0, new boolean[nums.size()]);
+                find_solution(nums, new ArrayList<>(), 6, 0,0 , new boolean[nums.size()]);
             }
+            ber.flush();
             ber.newLine();
         }
     }
