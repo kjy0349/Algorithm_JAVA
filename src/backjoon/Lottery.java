@@ -1,7 +1,7 @@
 package backjoon;
 import java.io.*;
 import java.util.*;
-public class lottery {
+public class Lottery {
     public static BufferedWriter ber = new BufferedWriter(new OutputStreamWriter(System.out));
     public static void find_solution(ArrayList<Integer> array, ArrayList<Integer> answer,int R,int start, boolean[] visited) throws IOException {
         if (R == 0){

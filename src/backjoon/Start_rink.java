@@ -2,7 +2,7 @@ package backjoon;
 import java.io.*;
 import java.util.*;
 
-public class start_rink {
+public class Start_rink {
     public static ArrayList<Integer> min_possible = new ArrayList<>();
     public static void find_possible(int N, int[][] abilitys, int depth, ArrayList<Integer> start, boolean[] visited){
         if(depth == N/2){

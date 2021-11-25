@@ -7,7 +7,7 @@ import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class password_making {
+public class Password_making {
     public static BufferedWriter ber = new BufferedWriter(new OutputStreamWriter(System.out));
     public static void find_password(ArrayList<String> cons, String[] alphabets,int start, int L, int C, String answer, int con_count) throws IOException{
         if(C == 0){
