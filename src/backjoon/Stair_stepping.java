@@ -10,17 +10,22 @@ public class Stair_stepping {
         for(int i=0;i<N;i++){
             stairs.add(Integer.parseInt(br.readLine()));
         }
-        ArrayList<Integer> road_sum = new ArrayList<>(){
-                {
-                    add(stairs.get(0));
-                    add(stairs.get(0) + stairs.get(1));
-                    add(Arrays.stream(new int[]{stairs.get(0) + stairs.get(2), stairs.get(1) + stairs.get(2)}).max().orElse(-1)); // 계단 2개를 밟았을 때 최대
-                }
-        };
-        for(int i=3; i<stairs.size();i++){
-            road_sum.add(Arrays.stream(new int[]{road_sum.get(i-3) + stairs.get(i) + stairs.get(i-1),
-                    road_sum.get(i-2) + stairs.get(i)}).max().orElse(-1));
+        if(N >= 3){
+            ArrayList<Integer> road_sum = new ArrayList<>(){
+                    {
+                        add(stairs.get(0));
+                        add(stairs.get(0) + stairs.get(1));
+                        add(Math.max(stairs.get(0) + stairs.get(2), stairs.get(1) + stairs.get(2))); // 계단 2개를 밟았을 때 최대
+                    }
+            };
+            for(int i=3; i<stairs.size();i++){
+                road_sum.add(Math.max(
+                        road_sum.get(i-2) + stairs.get(i),
+                        road_sum.get(i-3) + stairs.get(i) + stairs.get(i-1)));
+            }
+            System.out.println(road_sum.get(N-1));
+        }else{
+            System.out.println(stairs.stream().mapToInt(Integer::intValue).sum());
         }
-        System.out.println(Collections.max(road_sum));
     }
 }
