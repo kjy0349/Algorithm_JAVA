@@ -2,11 +2,21 @@ package standard;
 import java.util.*;
 public class Test {
     public static void main(String[] args){
-        HashMap<Integer, ArrayList<Integer>> map = new HashMap<>();
-        ArrayList<Integer> one = new ArrayList<>();
-        one.add(1);
-        one.add(2);
-        map.put(0, one);
-        System.out.println(map.get(0));
+        LinkedList<Integer> row = new LinkedList<>(){
+            {
+                add(1);
+                add(5);
+                add(6);
+                add(2);
+            }
+        };
+        LinkedList<Integer> col = new LinkedList<>(){
+            {
+                add(1);
+                add(3);
+                add(4);
+            }
+        };
+        System.out.println(row.get(row.indexOf(2)+1));
     }
 }

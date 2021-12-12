@@ -40,7 +40,7 @@ public class Snake {
         String[] cord;
         HashMap<Integer, String> direction_info = new HashMap<>();
         int direction = 1; // 동쪽
-        int tick = 1;
+        int tick = 0;
         int[] coordinate = new int[2];
         for (int i = 0; i < apple_count; i++) { // 사과가 있는 좌표의 값은 2
             cord = br.readLine().split(" ");
@@ -77,7 +77,6 @@ public class Snake {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
             System.out.println(tick);
         }
     }
