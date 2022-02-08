@@ -1,5 +1,4 @@
 package backjoon;
-import java.util.*;
 import java.io.*;
 
 public class Calendar_ingka_b {
