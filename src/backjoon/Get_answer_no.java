@@ -1,6 +1,6 @@
 package backjoon;
 import java.io.*;
-public class Get_answer {
+public class Get_answer_no {
     static int[] answer;
     static boolean check(int count, int[][] signs){
         int sub_sum = 0;
@@ -13,20 +13,17 @@ public class Get_answer {
         return true;
     }
 
-    static void solve(int N, int count, int[][] signs){
-        if (count == N){
-            return;
-        }
+    static boolean solve(int N, int count, int[][] signs){
+        if (count == N) return true;
         if(signs[count][count] == 0){
             answer[count] = 0;
-            if (check(count, signs)) solve(N, count + 1, signs);
+            return (check(count, signs) && solve(N, count + 1, signs));
         }
         for (int i = 1;i <= 10;i++){
             answer[count] = signs[count][count] * i;
-            if (check(count, signs)){
-                solve(N, count + 1, signs);
-            }
+            if (check(count, signs) && solve(N, count + 1, signs)) return true;
         }
+        return false;
     }
 
     public static void main(String[] args) throws IOException{
@@ -44,12 +41,13 @@ public class Get_answer {
             }
         }
         answer = new int[N];
+        solve(N, 0, signs);
         int printed_count = 0;
-        for (int elem : answer){
-            if (printed_count < N - 1)System.out.print(elem + " ");
+        for(int elem : answer){
+            if (printed_count < N - 1) System.out.print(elem + " ");
             else System.out.println(elem);
             printed_count++;
         }
-        solve(N, 0, signs);
+        System.out.println();
     }
 }
