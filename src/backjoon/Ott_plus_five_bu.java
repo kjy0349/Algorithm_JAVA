@@ -2,8 +2,8 @@ package backjoon;
 import java.io.*;
 public class Ott_plus_five_bu {
     static BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-    static long mod = 1000000009L;
-    static long[][] d = new long[100001][4];
+    static int mod = 1000000009;
+    static int[][] d = new int[100001][4];
     public static void main(String[] args) throws IOException{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int T = Integer.parseInt(br.readLine());
