@@ -2,7 +2,7 @@ package backjoon;
 
 import java.io.*;
 
-public class Set {
+public class Set_problem {
     static BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
     static void calculate(String operand, int S, int value) throws IOException{
         if (operand.equals("add")) S |= (1 << value);
