@@ -1,23 +1,19 @@
 package backjoon;
 import java.io.*;
-import java.util.*;
+import java.util.Arrays;
 
-public class Longest_increasing_subsequence {
+public class Continuous_sum {
     public static void main(String[] args) throws IOException{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int N = Integer.parseInt(br.readLine());
         int[] number = Arrays.stream(br.readLine().split(" ")).mapToInt(Integer::parseInt).toArray();
-        int[] d = new int[1001];
-        d[0] = 1;
+        int[] d = new int[100001];
+        d[0] = number[0];
+        int max_num = d[0];
         for (int i = 1;i < N;i++){
-            int temp_max = 0;
-            for (int j = 0;j < i;j++){
-                if (number[i] > number[j] && temp_max < d[j]) temp_max = d[j];
-            }
-            d[i] = temp_max + 1;
+            d[i] = Math.max(d[i - 1] + number[i], number[i]);
+            if (d[i] > max_num) max_num = d[i];
         }
-        int max_num = 0;
-        for (int elem : d) if (max_num < elem) max_num = elem;
         System.out.println(max_num);
     }
 }
