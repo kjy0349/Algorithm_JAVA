@@ -16,7 +16,7 @@ public class Sum_of_Disassemble {
                     d[i][j] %= 1000000000;
                 }
             }
-        }d
+        }
         System.out.println(d[K][N]);
     }
 }
