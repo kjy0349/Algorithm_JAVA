@@ -35,6 +35,7 @@ public class P_16935 {
     public static void main(String[] args) throws IOException{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int[] inputs = Arrays.stream(br.readLine().split(" ")).mapToInt(Integer::parseInt).toArray();
+        StringBuilder sb = new StringBuilder();
         int N = inputs[0];
         int M = inputs[1];
         int R = inputs[2];
@@ -50,8 +51,9 @@ public class P_16935 {
             map = n_map;
         }
         for (int[] ints : n_map) {
-            for (int j = 0; j < n_map[0].length - 1; j++) System.out.print(ints[j] + " ");
-            System.out.println(ints[n_map[0].length - 1]);
+            for (int j = 0; j < n_map[0].length - 1; j++) sb.append(ints[j]).append(" ");
+            sb.append(ints[n_map[0].length - 1]);
         }
+        System.out.print(sb);
     }
 }
