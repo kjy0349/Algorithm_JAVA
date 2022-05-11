@@ -15,6 +15,7 @@ public class Get_sites {
             Queue<Cord> q = new LinkedList<>();
             Cord cur = new Cord(x, y);
             q.add(cur);
+            String s = "asd";
             visited[cur.x][cur.y] = true;
             int count = 1;
             int[] dx = {1, 0, 0, -1};
