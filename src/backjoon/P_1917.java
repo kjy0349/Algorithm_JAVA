@@ -1,42 +1,108 @@
 package backjoon;
 
-import java.io.*;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.StringTokenizer;
+import java.util.Scanner;
 
-public class P_1917 {
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        int dx[] = {0, 0, 1, -1};
-        int dy[] = {1, -1, 0, 0};
-        for (int i = 0; i < 3; i++) {
-            int[][] map = new int[6][6];
-            StringTokenizer st;
-            for (int j = 0; j < 6; j++) {
-                st = new StringTokenizer(br.readLine());
-                for (int k = 0; k < 6; k++) map[j][k] = Integer.parseInt(st.nextToken());
+class P_1917{
+    static String[][] cubes = {
+            {"0010",
+                    "1111",
+                    "0010"},
+            {"0100",
+                    "1111",
+                    "1000"},
+            {"0010",
+                    "1111",
+                    "0100"},
+            {"0001",
+                    "1111",
+                    "1000"},
+            {"0001",
+                    "1111",
+                    "0100"},
+            {"11100",
+                    "00111"},
+            {"1100",
+                    "0111",
+                    "0010"},
+            {"1100",
+                    "0111",
+                    "0001"},
+            {"0010",
+                    "1110",
+                    "0011"},
+            {"0001",
+                    "1111",
+                    "0001"},
+            {"1100",
+                    "0110",
+                    "0011"}
+    };
+    static String[] mirror(String[] b) {
+        String[] ans = new String[b.length];
+        for (int i = 0; i < b.length; i++) {
+            ans[i] = new StringBuilder(b[i]).reverse().toString();
+        }
+        return ans;
+    }
+    static String[] rotate(String[] b) {
+        String[] ans = new String[b[0].length()];
+        for (int j = 0; j < b[0].length(); j++) {
+            StringBuilder sb = new StringBuilder();
+            for (int i = b.length - 1; i >= 0; i--) {
+                sb.append(b[i].charAt(j));
             }
-            ArrayList<Integer> adj_cnt = new ArrayList<>();
-            for (int x = 0; x < 6; x++) {
-                for (int y = 0; y < 6; y++) {
-                    if (map[x][y] == 1) {
-                        int temp = 0;
-                        for (int k = 0; k < 4; k++) {
-                            int nx = x + dx[k];
-                            int ny = y + dy[k];
-                            if (nx >= 0 && ny >= 0 && nx < 6 && ny < 6 && map[nx][ny] == 1) temp++;
-                        }
-                        adj_cnt.add(temp);
+            ans[j] = sb.toString();
+        }
+        return ans;
+    }
+    static boolean check(int[][] a, String[] b, int x, int y) {
+        int n = a.length;
+        for (int i = 0; i < b.length; i++) {
+            for (int j = 0; j < b[0].length(); j++) {
+                int nx = x + i;
+                int ny = y + j;
+                if (nx >= 0 && nx < n && ny >= 0 && ny < n) {
+                    if (b[i].charAt(j) == '0') {
+                        if (a[nx][ny] == 1) return false;
+                    } else if (b[i].charAt(j) == '1') {
+                        if (a[nx][ny] == 0) return false;
                     }
+                } else {
+                    return false;
                 }
             }
-            boolean is_poss = false;
-
-            if (is_poss) bw.write("yes" + "\n");
-            else bw.write("no" + "\n");
         }
-        bw.flush();
+        return true;
+    }
+
+    public static void main(String[] args) {
+        Scanner scan = new Scanner(System.in);
+        int t = 3;
+        while (t-- > 0) {
+            int n = 6;
+            int[][] a = new int[n][n];
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < n; j++) {
+                    a[i][j] = scan.nextInt();
+                }
+            }
+            boolean ans = false;
+            for (String[] c : cubes) {
+                String[] cube = new String[c.length];
+                System.arraycopy(c, 0, cube, 0, c.length);
+                for (int mir = 0; mir < 2; mir++) {
+                    for (int rot = 0; rot < 4; rot++) {
+                        for (int i = 0; i < n; i++) {
+                            for (int j = 0; j < n; j++) {
+                                ans |= check(a, cube, i, j);
+                            }
+                        }
+                        cube = rotate(cube);
+                    }
+                    cube = mirror(cube);
+                }
+            }
+            System.out.println(ans ? "yes" : "no");
+        }
     }
 }
