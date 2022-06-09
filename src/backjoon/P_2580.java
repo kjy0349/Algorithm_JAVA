@@ -57,6 +57,7 @@ public class P_2580 {
             }
         }
     }
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int N = 0;
