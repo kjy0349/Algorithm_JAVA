@@ -62,9 +62,9 @@ public class P_2580 {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int N = 0;
         for (int i = 0; i < 9; i++) {
-            StringTokenizer st = new StringTokenizer(br.readLine());
+            String[] temp = br.readLine().split("");
             for (int j = 0;j < 9;j++) {
-                map[i][j] = Integer.parseInt(st.nextToken());
+                map[i][j] = Integer.parseInt(temp[j]);
                 if (map[i][j] == 0) N++;
             }
         }
