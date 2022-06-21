@@ -18,7 +18,7 @@ class GoldMine {
     static int answer;
     static boolean[][] visited;
 
-    public static void bfs(int i, int j, int gold) {
+    public static void dfs(int i, int j, int gold) {
         if (gold > answer) answer = gold;
         for (int k = 0; k < 4; k++) {
             int nx = i + dx[k];
@@ -27,7 +27,7 @@ class GoldMine {
                     arr[nx][ny] > 0 && !visited[nx][ny])
             {
                 visited[nx][ny] = true;
-                bfs(nx, ny, gold + arr[nx][ny]);
+                dfs(nx, ny, gold + arr[nx][ny]);
                 visited[nx][ny] = false;
             }
         }
@@ -41,7 +41,7 @@ class GoldMine {
                 if (grid[i][j] > 0) {
                     visited = new boolean[grid.length][grid[0].length];
                     visited[i][j] = true;
-                    bfs(i, j, arr[i][j]);
+                    dfs(i, j, arr[i][j]);
                 }
             }
         }
