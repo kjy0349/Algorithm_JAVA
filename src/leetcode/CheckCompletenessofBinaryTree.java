@@ -14,7 +14,6 @@ class CheckCompletenessofaBinaryTree {
             this.right = right;
         }
     }
-
     static ArrayList<Integer> arr;
     public void bfs(TreeNode root) {
         Queue<TreeNode> queue = new LinkedList<>();
@@ -23,13 +22,12 @@ class CheckCompletenessofaBinaryTree {
             TreeNode temp = queue.poll();
             arr.add(temp.val);
             if (temp.left != null) queue.add(temp.left);
-            else if (temp.left == null && temp.val != -1) queue.add(new TreeNode(-1, null, null));
+            else if (temp.val != -1) queue.add(new TreeNode(-1, null, null));
             if (temp.right != null) queue.add(temp.right);
-            else if (temp.right == null && temp.val != -1) queue.add(new TreeNode(-1, null, null));
+            else if (temp.val != -1) queue.add(new TreeNode(-1, null, null));
         }
     }
     public boolean isCompleteTree(TreeNode root) {
-        if (root.left == null && root.right == null) return true;
         arr = new ArrayList<>();
         bfs(root);
         boolean is_poss = true;
