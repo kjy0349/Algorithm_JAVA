@@ -57,7 +57,7 @@ public class CountingPairs {
 
         int k = Integer.parseInt(bufferedReader.readLine().trim());
 
-        int result = HaRank.result.countPairs(numbers, k);
+        int result = HaRank.Result.countPairs(numbers, k);
 
         bufferedWriter.write(String.valueOf(result));
         bufferedWriter.newLine();
