@@ -1,5 +1,7 @@
 package sort;
 
+import java.util.Arrays;
+
 public class SortTimeTest {
     public static void main(String[] args) {
         int N = 100000000;
@@ -11,7 +13,7 @@ public class SortTimeTest {
         beforeTime = System.currentTimeMillis();
         QuickSort.main(new String[]{}, N);
         afterTime = System.currentTimeMillis();
-        secTime = (afterTime - beforeTime)/1000L;
+        secTime = (afterTime - beforeTime) / 1000L;
         System.out.println(secTime);
     }
 }

@@ -34,7 +34,6 @@ class Result {
         }
         return answer;
     }
-
 }
 
 public class CountingPairs {

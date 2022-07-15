@@ -32,7 +32,7 @@ class Result1 {
         final List<HashSet<String>> sens = new ArrayList<>(); // sentences's word
         final List<String> words = new ArrayList<>();
         for (int i = 0; i < sentences.size(); i++) { // 10000
-            sens.add(new HashSet<String>());
+            sens.add(new HashSet<>());
             st = new StringTokenizer(sentences.get(i).trim()); // 110
             final HashSet<String> elem = sens.get(i);
             while (st.hasMoreTokens()) elem.add(st.nextToken()); // 10
