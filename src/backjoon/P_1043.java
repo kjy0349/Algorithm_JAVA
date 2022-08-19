@@ -30,10 +30,10 @@ public class P_1043 {
             for (int elem : pty) {
                 if (vips.contains(elem)) {
                     is_poss = false;
-                    for (int j = 0; j < visited.length; j++) {
-                        if (visited[j])
-                    }
-                    break;
+//                    for (int j = 0; j < visited.length; j++) {
+//                        if (visited[j])
+//                    }
+//                    break;
                 }
             }
             if (!is_poss) {
