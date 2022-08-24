@@ -8,6 +8,11 @@ public class P_9375 {
     static HashMap<String, ArrayList<String>> clothes;
     static ArrayList<String> types;
 
+    public static void comb(int start) {
+        for (int i = start; i < types.size(); i++) {
+            int size = clothes.get(types.get(i)).size();
+        }
+    }
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
@@ -26,15 +31,7 @@ public class P_9375 {
                     clothes.get(inputs[1]).add(inputs[0]);
                 }
             }
-            for (int j = 0; j < types.size(); j++) {
-                int size = clothes.get(types.get(j)).size();
-                answer += size;
-                int sub_sum = 0;
-                for (int k = j + 1; k < types.size(); k++) {
-                    sub_sum += clothes.get(types.get(k)).size();
-                    answer += sub_sum * size;
-                }
-            }
+            comb(0);
             bw.write(answer + "\n");
         }
         bw.flush();
