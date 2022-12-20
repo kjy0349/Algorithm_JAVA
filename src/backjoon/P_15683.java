@@ -54,7 +54,7 @@ public class P_15683 {
             while (true) {
                 int nx = tx + dx[i];
                 int ny = ty + dy[i];
-                if (nx >= 0 && nx < N && ny >= 0 && ny < M && map[nx][n₩y] != 6) {
+                if (nx >= 0 && nx < N && ny >= 0 && ny < M && map[nx][ny] != 6) {
                     if (map[nx][ny] == 0) {
                         tmp--;
                         map[nx][ny] = '#';
