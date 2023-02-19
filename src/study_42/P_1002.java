@@ -1,3 +1,4 @@
+package study_42;
 import java.io.*;
 import java.util.Arrays;
 
