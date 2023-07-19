@@ -26,10 +26,11 @@ public class BACK_7569 {
 			this.day = day;
 		}
 	}
+	
 	public static void find_sol(int M, int N, int H) {
 		int sub_answer = 0;
 		int sub_count = 0;
-		while (que.isEmpty()) {
+		while (!que.isEmpty()) {
 			Cord elem = que.poll();
 			if (elem.day > sub_answer) sub_answer = elem.day;
 			for (int i = 0; i < 6; i++) {
@@ -38,6 +39,7 @@ public class BACK_7569 {
 				int nz = elem.z + dz[i];
 				if (nx >= 0 && ny >= 0 && nz >= 0 && nx < H && ny < N && nz < M) {
 					if (box[nx][ny][nz] == 0) {
+						box[nx][ny][nz] = 1;
 						que.add(new Cord(nx, ny, nz, elem.day + 1));
 						sub_count++;
 					}
