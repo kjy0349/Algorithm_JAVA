@@ -37,14 +37,20 @@ public class Main {
         int R = Integer.parseInt(st.nextToken());
         arr = new int[N][M];
         all_count = N * M;
-        for (int i = 0; i < N; i++) arr[i] = Arrays.stream(br.readLine().split(" ")).mapToInt(Integer::parseInt).toArray();
-        for (int k = 0; k < R; k++) {
-            visited = new boolean[N][M];
-            find_sol(0, 0, 0, 0, arr[0][0]);
+        visited = new boolean[N][M];
+        for (int i = 0; i < N; i++) {
+            st = new StringTokenizer(br.readLine());
+            for (int j = 0; j < M; j++) arr[i][j] = Integer.parseInt(st.nextToken());
         }
-        for (int i = 0; i < arr.length; i++) {
-            for (int j = 0; j < arr[0].length - 1; j++) bw.write(arr[i][j] + " ");
-            bw.write(Integer.toString(arr[i][arr[0].length - 1]));
+        for (int k = 0; k < R; k++) {
+            find_sol(0, 0, 0, 0, arr[0][0]);
+            for (int i = 0; i < visited.length; i++)  {
+                for (int j = 0; j < visited[0].length; j++) visited[i][j] = false;
+            }
+        }
+        for (int[] ints : arr) {
+            for (int j = 0; j < arr[0].length - 1; j++) bw.write(ints[j] + " ");
+            bw.write(Integer.toString(ints[arr[0].length - 1]));
             bw.newLine();
         }
         bw.flush();
