@@ -1,4 +1,3 @@
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -46,15 +45,14 @@ public class Main {
         int R = Integer.parseInt(st.nextToken());
         int C = Integer.parseInt(st.nextToken());
         int N = Integer.parseInt(st.nextToken());
-        String[][] map = new String[R][C];
         arr = new int[R][C];
         for (int i = 0; i < R; i++) {
             String line = br.readLine();
             for (int j = 0; j < C; j++) {
-                map[i][j] = Character.toString(line.charAt(j));
-                if (map[i][j].equals("O")) {
+                String elem = Character.toString(line.charAt(j));
+                if (elem.equals("O")) {
                     arr[i][j] = 3;
-                } else if (map[i][j].equals(".")) arr[i][j] = 0;
+                } else if (elem.equals(".")) arr[i][j] = 0;
             }
         }
 //        for (int[] elem : arr) System.out.println(Arrays.toString(elem));
