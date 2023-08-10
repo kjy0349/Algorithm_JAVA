@@ -1,6 +1,7 @@
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -36,8 +37,9 @@ public class Main {
         	for (int j = N - 1 - i; j > i; j--, index = (index + 1) % len) array[j][i] = elem.get(index);
         }
         for (int i = 0; i < array.length; i++) {
-        	for (int j = 0; j < array[0].length; j++) System.out.print(array[i][j] + " ");
-        	System.out.println();
+        	for (int j = 0; j < array[0].length; j++) sb.append(array[i][j] + " ");
+        	sb.append("\n");
         }
+        System.out.println(sb);
     }
 }
