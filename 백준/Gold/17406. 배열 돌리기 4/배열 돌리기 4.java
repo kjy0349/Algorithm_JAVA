@@ -88,7 +88,10 @@ public class Main {
             for (int j = 0; j < M; j++) array[i][j] = Integer.parseInt(st.nextToken());
         }
         for (int i = 0; i < K; i++) {
-        	commands[i] = Arrays.stream(br.readLine().split(" ")).mapToInt(Integer::parseInt).toArray();
+            st = new StringTokenizer(br.readLine());
+        	commands[i][0] = Integer.parseInt(st.nextToken());
+            commands[i][1] = Integer.parseInt(st.nextToken());
+            commands[i][2] = Integer.parseInt(st.nextToken());
         }
         perm(0);
         System.out.println(minA);
