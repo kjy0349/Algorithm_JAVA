@@ -10,7 +10,7 @@ public class Main {
 	static int[] dy = {1, 1, 1};
 	static boolean[][] visited;
 	static boolean chk;
-	static int[][] map;
+	static char[][] map;
 	static int answer;
 	
 	public static void dfs(int x, int y) {
@@ -22,7 +22,7 @@ public class Main {
 		for (int j = 0; j < 3; j++) {
 			int nx = x + dx[j];
 			int ny = y + dy[j];
-			if (nx >= 0 && ny >= 0 && nx < visited.length && ny < visited[0].length
+			if (!(nx < 0 || nx >= visited.length || ny < 0 || ny >= visited[0].length)
 					&& map[nx][ny] == 0 && !visited[nx][ny] && !chk) {
 				visited[nx][ny] = true;
 				dfs(nx, ny);
@@ -37,13 +37,13 @@ public class Main {
 		int R = Integer.parseInt(st.nextToken());
 		int C = Integer.parseInt(st.nextToken());
 		visited = new boolean[R][C];
-		map = new int[R][C];
+		map = new char[R][C];
 		answer = 0;
 		for (int i = 0; i < R; i++) {
-			String[] line = br.readLine().split("");
+			String line = br.readLine();
 			for (int j = 0; j < C; j++) {
-				if (line[j].equals(".")) map[i][j] = 0;
-				else map[i][j] = -1;
+				if (line.charAt(j) == '.') map[i][j] = (char)0;
+				else map[i][j] = (char)-1;
 			}
 		}
 		for (int i = 0; i < R; i++) {
