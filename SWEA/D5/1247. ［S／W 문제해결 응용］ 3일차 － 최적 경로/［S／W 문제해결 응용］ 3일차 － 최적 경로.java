@@ -10,6 +10,7 @@ public class Solution {
 	static int[] home;
 	static int[] now;
 	public static void solution(int depth, int subSum) {
+		if (subSum > answer) return;
 		if (depth == clients.length) {
 			subSum += Math.abs(now[0] - home[0]) + Math.abs(now[1] - home[1]);
 			if (subSum < answer) answer = subSum;
