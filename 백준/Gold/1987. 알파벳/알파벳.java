@@ -11,22 +11,23 @@ class Main {
     static char[][] map;
     static boolean[][] visited;
     static int answer;
-    static Set<Character> set;
+    static boolean[] alphabets;
     public static void dfs(int x, int y, int depth) {
         if (answer < depth) answer = depth;
         for (int i = 0; i < dx.length; i++) {
             int nx = x + dx[i];
             int ny = y + dy[i];
             if (nx >= 0 && ny >= 0 && nx < map.length && ny < map[0].length
-            && !visited[nx][ny] && !set.contains(map[nx][ny])) {
+            && !visited[nx][ny] && !alphabets[map[nx][ny] - 'A']) {
                 visited[nx][ny] = true;
-                set.add(map[nx][ny]);
+                alphabets[map[nx][ny] - 'A'] = true;
                 dfs(nx, ny, depth + 1);
-                set.remove(map[nx][ny]);
+                alphabets[map[nx][ny] - 'A'] = false;
                 visited[nx][ny] = false;
             }
         }
     }
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
@@ -34,16 +35,14 @@ class Main {
         int C = Integer.parseInt(st.nextToken());
         map = new char[R][C];
         visited = new boolean[R][C];
+        alphabets = new boolean[26];
         answer = -1;
-        set = new HashSet<>();
         for (int i = 0; i < R; i++) {
             String line = br.readLine();
-            for (int j = 0;j < C; j++) {
-                map[i][j] = line.charAt(j);
-            }
+            map[i] = line.toCharArray();
         }
         visited[0][0] = true;
-        set.add(map[0][0]);
+        alphabets[map[0][0] - 'A'] = true;
         dfs(0, 0, 1);
         System.out.println(answer);
     }
