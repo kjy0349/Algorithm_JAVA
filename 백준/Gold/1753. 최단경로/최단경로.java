@@ -6,18 +6,24 @@ import java.util.*;
 public class Main {
     static int INF = 1000000;
     static int[] answer;
-    static class Vertex {
+    static class Vertex implements Comparable<Vertex>{
         int v;
         int weight;
         Vertex(int v, int weight) {
             this.v = v;
             this.weight = weight;
         }
+
+        @Override
+        public int compareTo(Vertex vt) {
+            return Integer.compare(this.weight, vt.weight);
+        }
     }
-    static ArrayList<PriorityQueue<Vertex>> vtx;
+    static ArrayList<ArrayList<Vertex>> vtx;
 
     public static void diak(int start) {
-        PriorityQueue<Vertex> pq = vtx.get(start);
+        PriorityQueue<Vertex> pq = new PriorityQueue<>();
+        for (Vertex elem : vtx.get(start)) pq.offer(elem);
         answer[start] = 0;
         while (!pq.isEmpty()) {
             Vertex vt = pq.poll();
@@ -40,13 +46,13 @@ public class Main {
         Arrays.fill(answer, INF);
         int start = Integer.parseInt(br.readLine());
         vtx = new ArrayList<>();
-        for (int i = 0; i < V + 1; i++) vtx.add(new PriorityQueue<>((v1, v2) -> Integer.compare(v1.weight, v2.weight)));
+        for (int i = 0; i < V + 1; i++) vtx.add(new ArrayList<>());
         for (int i = 0; i < E; i++) {
             st = new StringTokenizer(br.readLine());
             int u = Integer.parseInt(st.nextToken());
             int v = Integer.parseInt(st.nextToken());
             int w = Integer.parseInt(st.nextToken());
-            vtx.get(u).offer(new Vertex(v, w));
+            vtx.get(u).add(new Vertex(v, w));
             if (u == start && answer[v] > w) answer[v] = w;
         }
         diak(start);
