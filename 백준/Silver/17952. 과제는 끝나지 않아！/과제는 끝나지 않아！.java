@@ -1,7 +1,7 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Stack;
+import java.util.ArrayDeque;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -9,7 +9,7 @@ public class Main {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		int N = Integer.parseInt(br.readLine());
 		StringTokenizer st;
-		Stack<int[]> stack = new Stack<>();
+		ArrayDeque<int[]> stack = new ArrayDeque<>();
 		int answer = 0;
 		for (int i = 0; i < N; i++) {
 			st = new StringTokenizer(br.readLine());
@@ -24,13 +24,13 @@ public class Main {
 					elem[2]--;
 					if (elem[2] == 0) {
 						answer += elem[1];
-						stack.pop();
+						stack.removeFirst();
 					}
 				}
 			} else {
 				line[2]--;
 				if (line[2] == 0) answer += line[1];
-				else stack.add(line);
+				else stack.addFirst(line);
 			}
 		}
 		System.out.println(answer);
