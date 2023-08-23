@@ -103,7 +103,7 @@ public class Main {
 		for (int i = 0; i < dx.length; i++) {
 			int nx = start.x + dx[i];
 			int ny = start.y + dy[i];
-			if (nx >= 0 && ny >= 0 && nx < input.length && ny < input[0].length) {
+			if (isIn(nx, ny)) {
 				if (input[nx][ny] != '.' && input[nx][ny] != 'Z') {
 					start.dir = i;
 					start.x = nx;
