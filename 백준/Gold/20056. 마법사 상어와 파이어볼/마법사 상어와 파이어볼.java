@@ -70,18 +70,10 @@ public class Main {
 			Fire elem = arr.get(i);
 			int nx = x + (dx[elem.d] * elem.s);
 			int ny = y + (dy[elem.d] * elem.s);
-			if (!isIn(nx, ny)) {
-				if (nx >= map.length) nx -= (nx / map.length) * map.length;
-				else if (nx < 0) nx += (Math.abs(nx) / map.length + 1) * map.length;
-				if (ny >= map[0].length) ny -= (ny / map[0].length) * map[0].length;
-				else if (ny < 0) ny += (Math.abs(ny) / map[0].length + 1) * map[0].length;
-			}
-			if (!isIn(nx, ny) ) {
-				if (nx >= map.length) nx -= (nx / map.length) * map.length;
-				else if (nx < 0) nx += (Math.abs(nx) / map.length + 1) * map.length;
-				if (ny >= map[0].length) ny -= (ny / map[0].length) * map[0].length;
-				else if (ny < 0) ny += (Math.abs(ny) / map[0].length + 1) * map[0].length;
-			}
+			if (nx >= 0) nx %= map.length;
+			else nx = (map.length - (-nx % map.length)) % map.length;
+			if (ny >= 0) ny %= map[0].length;
+			else ny = (map[0].length - (-ny % map[0].length)) % map[0].length;
 			tmpmap[nx][ny].arr.add(new Fire(elem.m, elem.d, elem.s));
 			arr.remove(i);
 		}
