@@ -2,130 +2,114 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class Main {
-	static char[][] map;
-	static int answer;
-	static int allCnt;
-	static int cctvCnt;
-	static int dx[] = {0, 1, 0, -1}; // 동 남 서 북
-	static int dy[] = {1, 0, -1, 0};
+	static int[] dx = {-1, 0, 1, 0};
+	static int[] dy = {0, 1, 0, -1};
 	static int N, M;
-	static int[] choosed;
-	static ArrayList<ArrayList<Integer>> poss;
+	static int[][] map;
+	static int section;
 	static ArrayList<Cctv> cctvs;
-	static char[][] tmpmap;
-	
-	static class Cctv {
-		char type;
-		int x;
-		int y;
-		Cctv(char type, int x, int y) {
-			this.type = type;
-			this.x = x;
-			this.y = y;
-		}
-	}
-	
-	private static boolean isIn(int x, int y) {
-		if (x < 0 || y < 0 || x >= map.length || y >= map[0].length) return false;
+	static int answer;
+	static boolean isIn(int x, int y) {
+		if (x < 0 || y < 0 || x >= N || y >= M) return false;
 		return true;
 	}
-	private static boolean see(int x, int y) {
-		if (tmpmap[x][y] == '0') {
-			tmpmap[x][y] = '#';
-			return true;
+	
+	static class Cctv {
+		int x;
+		int y;
+		int type;
+		Cctv(int x, int y, int type) {
+			this.x = x;
+			this.y = y;
+			this.type = type;
 		}
-		return false;
 	}
 	
-	private static int shoot(int x, int y, int dir) {
-		int sum = 0;
-		while (true) {
+	public static int see(Cctv ctv, int dir, int elem, int depth) {
+		int x = ctv.x + dx[dir];
+		int y = ctv.y + dy[dir];
+		int cnt = 0;
+		while (isIn(x, y)) {
+			if (map[x][y] == 6) break;
+			if (elem != 0 && map[x][y] == 0) {
+				map[x][y] = elem;
+				cnt++;
+			} else if (elem == 0 && map[x][y] == depth) {
+				map[x][y] = 0;
+				cnt++;
+			}
 			x += dx[dir];
 			y += dy[dir];
-			if (isIn(x, y) && tmpmap[x][y] != '6') {
-				if (see(x, y)) sum++;
-			} else break;
 		}
-		return sum;
+		return cnt;
 	}
 	
-	private static void perm(int depth) {
-		if (depth == cctvCnt) {
-			ArrayList<Integer> pos = new ArrayList<>();
-			for (int elem : choosed) pos.add(elem);
-			poss.add(pos);
+	public static int shoot(Cctv ctv, int dir, int elem, int depth) { // elem은 감시영역일지, 되돌릴지.
+		int type = ctv.type;
+		int cnt = 0;
+		if (type == 1) {
+			cnt += see(ctv, dir, elem, depth);
+		} else if (type == 2) {
+			if (dir == 0 || dir == 2) {
+				cnt += see(ctv, 0, elem, depth);
+				cnt += see(ctv, 2, elem, depth);
+			} else {
+				cnt += see(ctv, 1, elem, depth);
+				cnt += see(ctv, 3, elem, depth);
+			}
+		} else {
+			for (int i = 0; i < type - 1; i++) {
+				cnt += see(ctv, (dir + i) % dx.length, elem, depth);
+			}
+		}
+		return cnt;
+	}
+	
+	public static void solution(int depth, int subSum) {
+		if (depth == cctvs.size()) {
+//			int cnt = 0;
+//			for (int i = 0; i < N; i++) {
+//				for (int j = 0; j < M; j++) if (map[i][j] == 0) cnt++;
+//			}
+//			if (cnt < answer) answer = cnt;
+			if (section - subSum < answer) {
+				answer = section - subSum;
+			}
+//			for (int[] elem : map) System.out.println(Arrays.toString(elem));
+//			System.out.println();
 			return ;
 		}
 		for (int i = 0; i < dx.length; i++) {
-			choosed[depth] = i;
-			perm(depth + 1);
+			Cctv ctv = cctvs.get(depth);
+			int cnt = shoot(ctv, i, 10 + depth, 10 + depth); // 감시구역 늘리기
+			solution(depth + 1, subSum + cnt);
+			shoot(ctv, i, 0, 10 + depth); // 되돌리기
 		}
 	}
 	
-	public static void main(String[] args) throws IOException{
+	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st = new StringTokenizer(br.readLine());
-		answer = Integer.MAX_VALUE;
 		N = Integer.parseInt(st.nextToken());
 		M = Integer.parseInt(st.nextToken());
-		allCnt = 0;
-		cctvCnt = 0;
-		map = new char[N][M];
+		map = new int[N][M];
 		cctvs = new ArrayList<>();
+		section = 0;
 		for (int i = 0; i < N; i++) {
 			st = new StringTokenizer(br.readLine());
 			for (int j = 0; j < M; j++) {
-				map[i][j] = st.nextToken().charAt(0);
-				if (map[i][j] == '0') allCnt++;
-				else if (map[i][j] != '6') {
-					cctvCnt++;
-					cctvs.add(new Cctv(map[i][j], i, j));
-				}
+				map[i][j] = Integer.parseInt(st.nextToken());
+				if (map[i][j] > 0 && map[i][j] < 6) { // cctv 위치 저장		
+					cctvs.add(new Cctv(i, j, map[i][j]));
+				} else if (map[i][j] == 0) section++; // 사각지대 개수
 			}
 		}
-		choosed = new int[cctvCnt];
-		poss = new ArrayList<>();
-		perm(0);
-		tmpmap = new char[N][];
-		for (int i = 0; i < poss.size(); i++) {
-			int subSum = allCnt;
-			for (int j = 0; j < map.length; j++) tmpmap[j] = map[j].clone();
-			ArrayList<Integer> pos = poss.get(i);
-			for (int j = 0; j < pos.size(); j++) {
-				Cctv ctv = cctvs.get(j);
-				if (ctv.type == '1') {
-					subSum -= shoot(ctv.x, ctv.y, pos.get(j));
-				} else if (ctv.type == '2') {
-					int dir = pos.get(j);
-					if (dir == 0 || dir == 1) {
-						subSum -= shoot(ctv.x, ctv.y, 0);
-						subSum -= shoot(ctv.x, ctv.y, 2);
-					} else {
-						subSum -= shoot(ctv.x, ctv.y, 1);
-						subSum -= shoot(ctv.x, ctv.y, 3);
-					}
-				} else if (ctv.type == '3'){
-					int dir = pos.get(j);
-					int dir2 = (dir + 1) % 4;
-					subSum -= shoot(ctv.x, ctv.y, dir);
-					subSum -= shoot(ctv.x, ctv.y, dir2);
-				} else if (ctv.type == '4') {
-					int dir = pos.get(j);
-					int dir2 = (dir + 1) % 4;
-					int dir3 = (dir2 + 1) % 4;
-					subSum -= shoot(ctv.x, ctv.y, dir);
-					subSum -= shoot(ctv.x, ctv.y, dir2);
-					subSum -= shoot(ctv.x, ctv.y, dir3);
-				}
-				else if (ctv.type == '5') {
-					for (int k = 0; k < 4; k++) subSum -= shoot(ctv.x, ctv.y, k);
-				}
-			}
-			if (subSum < answer) answer = subSum;
-		}
+		answer = section;
+		solution(0, 0);
 		System.out.println(answer);
 	}
 }
