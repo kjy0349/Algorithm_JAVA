@@ -9,35 +9,35 @@ public class Main {
         StringTokenizer st = new StringTokenizer(br.readLine());
         int N = Integer.parseInt(st.nextToken());
         int K = Integer.parseInt(st.nextToken());
-        int[] stream = new int[2 * N];
-        boolean[] is_robot = new boolean[2 * N];
+        int[] belt = new int[2 * N];
+        boolean[] isRobot = new boolean[2 * N];
         st = new StringTokenizer(br.readLine());
-        for (int i = 0; i < 2 * N; i++) stream[i] = Integer.parseInt(st.nextToken());
+        for (int i = 0; i < 2 * N; i++) belt[i] = Integer.parseInt(st.nextToken());
         int z_count = 0;
         int gen = 0;
         while (z_count < K)
         {
-            int temp = stream[2 * N - 1];
-            System.arraycopy(stream, 0, stream, 1, stream.length - 1);
-            stream[0] = temp;
-            boolean temp1 = is_robot[2 * N - 1];
-            System.arraycopy(is_robot, 0, is_robot, 1, is_robot.length - 1);
-            is_robot[0] = temp1;
-            if (is_robot[N - 1]) is_robot[N - 1] = false;
+            int last = belt[2 * N - 1];
+            System.arraycopy(belt, 0, belt, 1, belt.length - 1);
+            belt[0] = last;
+            
+            System.arraycopy(isRobot, 0, isRobot, 1, isRobot.length - 1);
+            isRobot[0] = false;
+            if (isRobot[N - 1]) isRobot[N - 1] = false;
             for (int i = N - 2; i >= 0; i--) {
-                boolean elem = is_robot[i];
-                if (elem && !is_robot[i + 1] && stream[i + 1] > 0) {
-                    is_robot[i] = false;
-                    is_robot[i + 1] = true;
-                    stream[i + 1]--;
-                    if (stream[i + 1] == 0) z_count++;
+                boolean elem = isRobot[i];
+                if (elem && !isRobot[i + 1] && belt[i + 1] > 0) {
+                    isRobot[i] = false;
+                    isRobot[i + 1] = true;
+                    belt[i + 1]--;
+                    if (belt[i + 1] == 0) z_count++;
                 }
             }
-            if (is_robot[N - 1]) is_robot[N - 1] = false;
-            if (stream[0] > 0) {
-                is_robot[0] = true;
-                stream[0]--;
-                if (stream[0] == 0) z_count++;
+            if (isRobot[N - 1]) isRobot[N - 1] = false;
+            if (belt[0] > 0) {
+                isRobot[0] = true;
+                belt[0]--;
+                if (belt[0] == 0) z_count++;
             }
             gen++;
         }
