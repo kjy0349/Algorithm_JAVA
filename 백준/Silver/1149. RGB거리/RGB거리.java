@@ -20,6 +20,8 @@ public class Main {
 			d[i][1] = Math.min(d[i - 1][0], d[i - 1][2]) + input[i][1];
 			d[i][2] = Math.min(d[i - 1][1], d[i - 1][0]) + input[i][2];
 		}
-		System.out.println(Arrays.stream(d[N]).min().getAsInt());
+        int min = Math.min(d[N][0], d[N][1]);
+        min = Math.min(min, d[N][2]);
+        System.out.println(min);
 	}
 }
