@@ -1,37 +1,38 @@
-import java.util.*;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Arrays;
+import java.util.StringTokenizer;
 
 public class Main {
-
-    static int[][] triangle;
-    static int[][] dp;
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st;
         int N = Integer.parseInt(br.readLine());
-
-        triangle = new int[N][N];
-        dp = new int[N][N];
+        int[][] tri = new int[N][];
         for (int i = 0; i < N; i++) {
-            st = new StringTokenizer(br.readLine(), " ");
-            for (int j = 0; j <= i; j++) {
-                triangle[i][j] = Integer.parseInt(st.nextToken());
+            StringTokenizer st = new StringTokenizer(br.readLine());
+            tri[i] = new int[i + 1];
+            for (int j = 0; j < i + 1; j++) {
+                tri[i][j] = Integer.parseInt(st.nextToken());
             }
         }
-        dp[0][0] = triangle[0][0];
-        int max = dp[0][0];
-        for (int i = 1; i < N; i++) {
-            for (int j = 0; j <= i; j++) {
-                int a = dp[i - 1][j];
-                int b = 0;
-                if (j - 1 >= 0) b = dp[i - 1][j - 1];
-                dp[i][j] = Math.max(a, b) + triangle[i][j];
-                if (N - 1 == i) max = Math.max(dp[i][j], max);
+        int[][] dp = new int[tri.length][];
+        for (int i = 0; i < N; i++) dp[i] = new int[tri[i].length];
+        dp[0][0] = tri[0][0];
+        for (int i = 1; i < dp.length; i++) {
+            for (int j = 0; j < dp[i].length; j++) {
+                int lefIdx = j - 1;
+                int lefTgt, rigTgt;
+                lefTgt = rigTgt = Integer.MIN_VALUE;
+                if (lefIdx >= 0) lefTgt = dp[i - 1][lefIdx];
+                if (j < dp[i - 1].length) rigTgt = dp[i - 1][j];
+                dp[i][j] = Math.max(lefTgt, rigTgt) + tri[i][j];
             }
         }
-//        for (int[] arr: dp){
-//            System.out.println(Arrays.toString(arr));
-//        }
+        int max = 0;
+        for (int i = 0; i < dp[N - 1].length; i++) {
+            if (dp[N - 1][i] > max) max = dp[N - 1][i];
+        }
         System.out.println(max);
     }
 }
