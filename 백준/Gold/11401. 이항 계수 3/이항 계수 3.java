@@ -4,15 +4,15 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class Main {
-    static long NUM = 1000000007;
+    static long NUM = 1_000_000_007;
     public static long fastPow(long a, long b) {
         if (b == 0) return 1;
         long ret = 1;
         while (b > 0) {
             if (b % 2 == 1) {
-                ret = ((ret % NUM) * (a % NUM)) % NUM;
+                ret = (ret * a) % NUM;
             }
-            a = ((a % NUM) * (a % NUM)) % NUM;
+            a = (a * a) % NUM;
             b >>= 1;
         }
         return ret;
@@ -20,7 +20,7 @@ public class Main {
     public static long factorial(long N) {
         long ret = 1;
         while (N > 0) {
-            ret = ((ret % NUM) * (N % NUM)) % NUM;
+            ret = (ret * N) % NUM;
             N--;
         }
         return ret;
@@ -29,7 +29,7 @@ public class Main {
     public static long solve(long N, long R) {
         long answer = factorial(N);
         long subMul = fastPow((factorial(N - R) * factorial(R)) % NUM, NUM - 2);
-        answer = ((answer % NUM) * (subMul % NUM)) % NUM;
+        answer = (answer * subMul) % NUM;
         return answer;
     }
 
