@@ -6,7 +6,6 @@ import java.util.StringTokenizer;
 public class Main {
     static long NUM = 1_000_000_007;
     public static long fastPow(long a, long b) {
-        if (b == 0) return 1;
         long ret = 1;
         while (b > 0) {
             if (b % 2 == 1) {
@@ -17,28 +16,24 @@ public class Main {
         }
         return ret;
     }
-    public static long factorial(long N) {
-        long ret = 1;
-        while (N > 0) {
-            ret = (ret * N) % NUM;
-            N--;
-        }
-        return ret;
-    }
-
-    public static long solve(long N, long R) {
-        long answer = factorial(N);
-        long subMul = fastPow((factorial(N - R) * factorial(R)) % NUM, NUM - 2);
-        answer = (answer * subMul) % NUM;
-        return answer;
-    }
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
+        StringBuilder sb = new StringBuilder();
         int N = Integer.parseInt(st.nextToken());
         int R = Integer.parseInt(st.nextToken());
-        long answer = solve(N, R);
-        System.out.print(answer);
+        long nComb = 1;
+        long rComb = 1;
+        long nrComb = 1;
+        long start = N;
+        while (N > 0) {
+            nComb = (nComb * N) % NUM;
+            if (N <= R) rComb = (rComb * N) % NUM;
+            if (N <= start - R) nrComb = (nrComb * N) % NUM;
+            N--;
+        }
+        sb.append((fastPow((nrComb * rComb) % NUM, NUM - 2) * nComb) % NUM).append("\n");
+        System.out.print(sb);
     }
 }
