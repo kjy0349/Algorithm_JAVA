@@ -24,10 +24,7 @@ public class Main {
                     Integer.parseInt(st.nextToken()),
                     Integer.parseInt(st.nextToken())};
         }
-        Arrays.sort(classes, (a, b) -> {
-            if (a[1] == b[1]) return Integer.compare(a[2], b[2]);
-            else return Integer.compare(a[1], b[1]); // 시작 시간을 기준으로 정렬
-        });
+        Arrays.sort(classes, (a, b) -> Integer.compare(a[1], b[1])); // 시작 시간을 기준으로 정렬
         Map<Integer, Integer> map = new HashMap<>();
         PriorityQueue<Info> pq = new PriorityQueue<>((a, b) -> Integer.compare(a.classInfo[2], b.classInfo[2]));
         int K = 1;
@@ -35,14 +32,14 @@ public class Main {
         map.put(classes[0][0], K);
         for (int i = 1; i < classes.length; i++) {
             int[] target = classes[i];
-            Info info = pq.poll();
-            if (info.classInfo[2] <= target[1]) { // 기존 강의실 배정
+            Info info = pq.peek();
+            if (info.classInfo[2] <= target[1]) {
                 pq.offer(new Info(target, info.K));
+                pq.poll();
                 map.put(target[0], info.K);
             } else {
                 K++;
                 pq.offer(new Info(target, K));
-                pq.offer(info);
                 map.put(target[0], K);
             }
         }
