@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.StringTokenizer;
@@ -11,10 +12,14 @@ public class Main {
         int N = Integer.parseInt(br.readLine());
         StringTokenizer st = new StringTokenizer(br.readLine());
         int[] nums = new int[N];
-        int minAnswer = Integer.MAX_VALUE;
+        int minAnswer = 500;
         for (int i = 0; i < nums.length; i++) nums[i] = Integer.parseInt(st.nextToken());
         Set<Integer> possDiff = new HashSet<>();
-        for (int i = 0; i < nums.length - 1; i++) possDiff.add(nums[i + 1] - nums[i]);
+        for (int i = 0; i < nums.length; i++) {
+            for (int j = i + 1; j < nums.length; j++) {
+                possDiff.add(nums[j] - nums[i]);
+            }
+        }
         possDiff.add(0);
         for (int diff : possDiff) { // diff : targetDiff. 해당 등차로 만들어야 함.
             for (int i = 0; i < nums.length; i++) { // 중심이 될 수
@@ -33,7 +38,6 @@ public class Main {
                     }
                 }
                 if (subAnswer < minAnswer) minAnswer = subAnswer;
-                if (diff == 0) break;
             }
         }
         System.out.println(minAnswer);
