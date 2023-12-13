@@ -28,42 +28,37 @@ public class Main {
         A BC B/ B A C B/ AB B
 
         ABABABB
-        결론
-        1. B나 C가 들어오면 그냥 넣는다.
-        1-1. A가 들어오면
         */
         int answer = 0;
-        Queue<Character> que = new ArrayDeque<>();
-        int Acnt = 0;
+        /* 최악일 때 O(n^2). 여기서는 근데 B만 볼거니까 따로 A를 넣어 줄 필요가 있나?
+           넣어 줄 필요가 있다. 남은 A와 B의 순서를 유지해야 해.
+
+           1. A나 B가 나오면 그냥 넣는다.
+           2. C가 나오면, 먼저 들어온 B를 찾아 제거하고 답을 1 늘린다.
+           2-1. 먼저 들어온 B를 선택해야, 남은 B들이 A 뒤에 있을 확률이 높아지므로 가장 낮은 가치인 먼저 들어온 B를 버린다.
+        */
+        Queue<Integer> bIdx = new ArrayDeque<>();
+        boolean[] visited = new boolean[line.length];
         for (int i = 0; i < line.length; i++) {
             char elem = line[i];
-            if (elem == 'A' || elem == 'B') que.offer(elem);
-            else { // C
-                Acnt = 0;
-                while (!que.isEmpty()) {
-                    char target = que.poll();
-                    if (target == 'B') {
-                        answer++;
-                        break;
-                    } else Acnt++;
-                }
-                if (Acnt > 0) {
-                    Queue<Character> tmp = new ArrayDeque<>();
-                    for (int j = 0; j < Acnt; j++) tmp.offer('A');
-                    tmp.addAll(que);
-                    que = tmp;
+            if (elem == 'B') bIdx.offer(i);
+            else if (elem == 'C'){ // C
+                if (!bIdx.isEmpty()) {
+                    answer++;
+                    visited[bIdx.poll()] = true;
                 }
             }
         }
-        ArrayList<Character> arr = new ArrayList<>(que);
-        Acnt = 0;
-        for (char elem : arr) {
-            if (elem == 'B') {
+        // O(n)
+        int Acnt = 0;
+        for (int i = 0; i < line.length; i++) {
+            char elem = line[i];
+            if (elem == 'B' && !visited[i]) {
                 if (Acnt > 0) {
                     Acnt--;
                     answer++;
                 }
-            } else Acnt++;
+            } else if (elem == 'A') Acnt++;
         }
         System.out.println(answer);
     }
