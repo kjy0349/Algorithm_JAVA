@@ -58,9 +58,7 @@ public class Main {
                 }
             }
             String answer = temp.toString();
-            if (!set.contains(answer)) {
-                set.add(answer);
-            }
+            set.add(answer);
         }
         StringBuilder sb = new StringBuilder();
         for (String s : set) {
