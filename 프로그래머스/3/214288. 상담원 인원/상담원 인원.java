@@ -35,11 +35,6 @@ class Solution {
             this.nowDelay = nowDelay;
             this.plusDelay = plusDelay;
         }
-        
-        @Override
-        public String toString() {
-            return "index : " + index + " nowDelay : " + nowDelay + " plusDelay : " + plusDelay;
-        }
     }
 
     static class Mentor implements Comparable<Mentor>{
@@ -52,11 +47,6 @@ class Solution {
         @Override
         public int compareTo(Mentor o1) {
             return Integer.compare(this.finTime, o1.finTime);
-        }
-        
-        @Override
-        public String toString() {
-            return finTime + " ";
         }
     }
     public void calTargetDelayTime(ArrayList<ArrayList<int[]>> timeLines, DelayTime[] delayTimes, int index, int count) {
